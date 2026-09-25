@@ -1,0 +1,38 @@
+name: Update a church listing · 更新教会资料
+description: Tell SYDACM what has changed in your church's listing. 请告诉我们贵教会的资料有何变动。
+title: "Listing update: "
+labels: ["listing-update"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for keeping your church's details current. We check every change before it goes online.
+        感谢您协助更新贵教会的资料。每项更新都会经我们核对后才会上载。
+
+        **Please give parish office contacts only, not ministers' personal mobiles or emails.** This page is public.
+        **请只提供堂区办公室的联络方式，勿提供牧者的私人手机或电邮。** 本页面是公开的。
+  - type: input
+    id: church
+    attributes:
+      label: Church · 教会
+      description: The church's name as it appears in the list. 名单上的教会名称。
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: No changes? · 没有变动？
+      options:
+        - label: Everything in our listing is still correct. 我们的资料全部正确。
+  - type: textarea
+    id: changes
+    attributes:
+      label: What has changed? · 有何变动？
+      description: Only what is different, e.g. "Mandarin service now Sunday 11:30am", a new address, or a new office email. 只需写出变动的部分。
+  - type: input
+    id: contact
+    attributes:
+      label: Your name and role · 您的姓名及职分
+      description: So we can confirm the change with you if needed. 以便我们需要时与您确认。
+    validations:
+      required: true
