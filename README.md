@@ -26,7 +26,7 @@ None of that was anyone's fault. The list lived as typed text on a web page, so 
 | Path | What it is |
 |---|---|
 | `data/churches.csv` | **The source of truth.** Edit this file; everything else is generated. |
-| `data/churches.json` | The same data as JSON. |
+| `docs/churches.json` | Generated. The same data as JSON. |
 | `docs/index.html` | The public site — three maps and the full list. |
 | `docs/churches.geojson` | Generated. Drop into any mapping tool. |
 | `scripts/build.py` | Checks the CSV and rebuilds the map files. |
@@ -55,16 +55,15 @@ The `congregation` / `translation` split is the most useful thing in this datase
 
 ## How a church updates its entry
 
-**No GitHub account is needed to email us; an account is needed to use the form.**
+**Easiest — no account needed:** on [sydacm.github.io → Find a Church](https://sydacm.github.io/#/churches), click **Update this listing** under the church. An email to SYDACM opens with the church's current details already filled in; the church changes what's different and sends it.
 
-1. Open the [update form](../../issues/new?template=update-listing.yml).
-2. Choose your church from the list.
-3. Tell us only what has **changed** — or tick the box to say everything is still correct.
-4. We check it and update the file. You will see the change in this repository.
+**With a GitHub account:** open the [update form](../../issues/new?template=update-listing.yml), choose the church, and say what has changed — or tick the box to say everything is still correct.
+
+Either way, SYDACM checks the change and updates `data/churches.csv`. See **[UPDATING.md](UPDATING.md)** for how.
 
 Each church has its own pre-filled link in `church-update-links.csv`. Those links are **identifiers, not passwords** — see below.
 
-如需更新资料，请使用上方表格，或直接联络 SYDACM。
+如需更新资料，请在 sydacm.github.io 该教会下方按「更新资料」（无需帐户），或使用上方表格，或直接电邮 david@yungs.au。
 
 ---
 
