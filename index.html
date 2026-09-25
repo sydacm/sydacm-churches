@@ -66,6 +66,11 @@
     border-radius:999px;padding:4px 11px;color:var(--muted)}
   .dot{width:11px;height:11px;border-radius:50%;flex:0 0 auto}
 
+  /* OpenStreetMap tiles are colourful; mute them so the markers carry the meaning */
+  .leaflet-tile-pane{filter:saturate(.3) brightness(1.04) contrast(.92)}
+  @media (prefers-color-scheme:dark){
+    .leaflet-tile-pane{filter:saturate(.25) brightness(.82) contrast(.9)}
+  }
   .leaflet-popup-content{font-family:"Source Sans 3",sans-serif;font-size:14px;margin:12px 14px}
   .leaflet-popup-content b{font-size:15px}
   .leaflet-popup-content .zh{font-family:"Noto Sans SC",sans-serif;color:#1D5FA8}
@@ -190,8 +195,9 @@ const LANG_COLOUR = {Mandarin:'#C2452D', Cantonese:'#1D5FA8', Bilingual:'#6A4FA3
 
 function baseMap(id){
   const m = L.map(id, {scrollWheelZoom:false}).setView([-33.86, 151.05], 10);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution:'&copy; OpenStreetMap &copy; CARTO', maxZoom:18, subdomains:'abcd'
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom:18
   }).addTo(m);
   return m;
 }
