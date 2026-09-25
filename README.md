@@ -25,12 +25,12 @@ None of that was anyone's fault. The list lived as typed text on a web page, so 
 
 | Path | What it is |
 |---|---|
-| `data/churches.csv` | **The source of truth.** Edit this file; everything else is generated. |
-| `docs/churches.json` | Generated. The same data as JSON. |
-| `docs/index.html` | The public site — three maps and the full list. |
-| `docs/churches.geojson` | Generated. Drop into any mapping tool. |
-| `scripts/build.py` | Checks the CSV and rebuilds the map files. |
-| `.github/ISSUE_TEMPLATE/` | The form a church uses to send changes. |
+| `churches.csv` | **The source of truth.** Edit this file; the maps are rebuilt from it automatically. |
+| `index.html` | The public site: three maps and the full list. |
+| `build.py` | Checks `churches.csv` and builds the published maps (`churches.geojson`, `churches.json`). |
+| `church-update-links.csv` | A pre-filled update-form link for each church. |
+| `UPDATING.md` | **How to update church details** — start here. |
+| `.github/` | The publishing workflow and the church update form (hidden folder). |
 
 ### The three maps
 
@@ -59,7 +59,7 @@ The `congregation` / `translation` split is the most useful thing in this datase
 
 **With a GitHub account:** open the [update form](../../issues/new?template=update-listing.yml), choose the church, and say what has changed — or tick the box to say everything is still correct.
 
-Either way, SYDACM checks the change and updates `data/churches.csv`. See **[UPDATING.md](UPDATING.md)** for how.
+Either way, SYDACM checks the change and updates `churches.csv`. See **[UPDATING.md](UPDATING.md)** for how.
 
 Each church has its own pre-filled link in `church-update-links.csv`. Those links are **identifiers, not passwords** — see below.
 
@@ -97,12 +97,11 @@ Derived from street addresses — accurate to roughly 100 m. Good enough to plot
 
 ## Editing the data
 
-```bash
-# edit data/churches.csv, then:
-python3 scripts/build.py
-```
+Open `churches.csv` on github.com, click the pencil ✏️, make the change and **Commit changes**. Within a couple of minutes both the maps here and the Find a Church page on sydacm.github.io update. Full instructions are in **[UPDATING.md](UPDATING.md)**.
 
-The script refuses to build if a row has a bad category, a missing name, or coordinates outside Sydney. GitHub Actions runs the same check on every push and rebuilds the published maps.
+Every change is checked first. If a row has a bad category or region, a missing name, too many commas, or coordinates outside Sydney, the **Actions** tab turns red and names the row, and the live maps stay as they were.
+
+To preview on a computer: `python3 build.py` then `python3 -m http.server -d _site`.
 
 ---
 

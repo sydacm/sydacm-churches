@@ -20,4 +20,4 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-The DATA in data/ and docs/ is licensed separately under CC BY 4.0.
+The church data (churches.csv and the files generated from it) is licensed separately under CC BY 4.0.
