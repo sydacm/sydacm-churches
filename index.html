@@ -69,6 +69,20 @@
   .cross-marker{background:none;border:0}
   .legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;align-items:center}
   .legend svg{display:block;flex:0 0 auto}
+  .legend-hint{font-size:13px;color:var(--faint);margin:8px 0 0}
+
+  /* pressable legend keys (maps 1 and 2) */
+  button.key{font:inherit;font-size:13px;cursor:pointer;
+    transition:background .15s,border-color .15s,color .15s}
+  button.key:hover:not(:disabled){border-color:var(--kc);color:var(--ink)}
+  button.key:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  button.key[aria-pressed="true"]{border-color:var(--kc);color:var(--ink);
+    background:color-mix(in srgb, var(--kc) 13%, var(--surface));
+    box-shadow:inset 0 0 0 1px var(--kc)}
+  button.key:disabled{opacity:.45;cursor:default}
+  .key .n{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  button.key[aria-pressed="true"] .n{color:var(--kc)}
 
   .reach{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:12px;
     background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:10px 14px}
@@ -143,12 +157,14 @@
     <h2>1. By ministry type <span class="zh">按事工类型</span></h2>
     <p>Not every church on this list holds a service in Chinese. Some run an English service with live translation. The difference matters if you are deciding where to go on Sunday.</p>
     <div id="map1" class="map"></div>
-    <div class="legend">
-      <span class="key"><svg width="11" height="14" viewBox="0 0 16 20"><path d="M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z" fill="var(--cong)"/></svg>Chinese congregation 华语崇拜</span>
-      <span class="key"><svg width="11" height="14" viewBox="0 0 16 20"><path d="M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z" fill="var(--trans)"/></svg>Translation parish 翻译</span>
-      <span class="key"><svg width="11" height="14" viewBox="0 0 16 20"><path d="M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z" fill="var(--group)"/></svg>Chinese groups 小组</span>
-      <span class="key"><svg width="11" height="14" viewBox="0 0 16 20"><path d="M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z" fill="var(--unk)"/></svg>Unconfirmed 待确认</span>
+    <div class="legend" id="legend1">
+      <button type="button" class="key" data-k="congregation" aria-pressed="false" style="--kc:var(--cong)"><svg width="11" height="14" viewBox="0 0 16 20"><path d="M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z" fill="var(--cong)"/></svg>Chinese congregation 华语崇拜 <span class="n"></span></button>
+      <button type="button" class="key" data-k="translation" aria-pressed="false" style="--kc:var(--trans)"><svg width="11" height="14" viewBox="0 0 16 20"><path d="M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z" fill="var(--trans)"/></svg>Translation parish 翻译 <span class="n"></span></button>
+      <button type="button" class="key" data-k="groups" aria-pressed="false" style="--kc:var(--group)"><svg width="11" height="14" viewBox="0 0 16 20"><path d="M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z" fill="var(--group)"/></svg>Chinese groups 小组 <span class="n"></span></button>
+      <button type="button" class="key" data-k="unknown" aria-pressed="false" style="--kc:var(--unk)"><svg width="11" height="14" viewBox="0 0 16 20"><path d="M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z" fill="var(--unk)"/></svg>Unconfirmed 待确认 <span class="n"></span></button>
     </div>
+    <p class="legend-hint">Tap a colour to show only those churches. Tap it again to show them all.
+      <span class="zh">点击图例即可只显示该类教会，再点一次恢复全部。</span></p>
   </section>
 
   <!-- MAP 2 -->
@@ -156,11 +172,14 @@
     <h2>2. By language <span class="zh">按语言</span></h2>
     <p>Mandarin, Cantonese, or both in one service. A church appears once for each language it offers.</p>
     <div id="map2" class="map"></div>
-    <div class="legend">
-      <span class="key"><svg width="11" height="14" viewBox="0 0 16 20"><path d="M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z" fill="#C2452D"/></svg>Mandarin 国语</span>
-      <span class="key"><svg width="11" height="14" viewBox="0 0 16 20"><path d="M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z" fill="#1D5FA8"/></svg>Cantonese 粤语</span>
-      <span class="key"><svg width="11" height="14" viewBox="0 0 16 20"><path d="M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z" fill="#6A4FA3"/></svg>Bilingual 双语</span>
+    <div class="legend" id="legend2">
+      <button type="button" class="key" data-k="Mandarin" aria-pressed="false" style="--kc:#C2452D"><svg width="11" height="14" viewBox="0 0 16 20"><path d="M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z" fill="#C2452D"/></svg>Mandarin 国语 <span class="n"></span></button>
+      <button type="button" class="key" data-k="Cantonese" aria-pressed="false" style="--kc:#1D5FA8"><svg width="11" height="14" viewBox="0 0 16 20"><path d="M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z" fill="#1D5FA8"/></svg>Cantonese 粤语 <span class="n"></span></button>
+      <button type="button" class="key" data-k="Bilingual" aria-pressed="false" style="--kc:#6A4FA3"><svg width="11" height="14" viewBox="0 0 16 20"><path d="M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z" fill="#6A4FA3"/></svg>Bilingual 双语 <span class="n"></span></button>
+      <button type="button" class="key" data-k="Chinese" aria-pressed="false" style="--kc:#5A7684"><svg width="11" height="14" viewBox="0 0 16 20"><path d="M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z" fill="#5A7684"/></svg>Not specified 未注明 <span class="n"></span></button>
     </div>
+    <p class="legend-hint">Tap a language to show only those churches. Tap it again to show them all.
+      <span class="zh">点击语言即可只显示该语言的教会，再点一次恢复全部。</span></p>
   </section>
 
   <!-- MAP 3 -->
@@ -214,7 +233,45 @@ const CAT_COLOUR = {congregation:C('--cong'), translation:C('--trans'),
 const CAT_LABEL  = {congregation:'Chinese congregation 华语崇拜',
                     translation:'Translation parish 翻译',
                     groups:'Chinese groups 小组', unknown:'Unconfirmed 待确认'};
-const LANG_COLOUR = {Mandarin:'#C2452D', Cantonese:'#1D5FA8', Bilingual:'#6A4FA3', Chinese:'#6A4FA3'};
+const LANG_COLOUR = {Mandarin:'#C2452D', Cantonese:'#1D5FA8', Bilingual:'#6A4FA3', Chinese:'#5A7684'};
+
+/* Pressing a legend key isolates that group: matching crosses grow and stay solid,
+   the rest fade back, and the map eases to fit what is left. Press again to reset. */
+function pressableLegend(legendId, map, markers){
+  const legend = document.getElementById(legendId);
+  if (!legend || !markers.length) return;
+  const btns = [...legend.querySelectorAll('.key[data-k]')];
+  const group = k => markers.filter(m => m._k === k);
+
+  btns.forEach(b => {
+    const n = group(b.dataset.k).length;
+    b.querySelector('.n').textContent = n;
+    if (!n) b.disabled = true;
+  });
+
+  const fit = (list, active) => {
+    const b = L.latLngBounds(list.map(m => m.getLatLng())).pad(0.22);
+    map.flyToBounds(b, {maxZoom: active ? 12 : 11, duration:.6});
+  };
+
+  let current = null;
+  function apply(active){
+    btns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.k === active)));
+    markers.forEach(m => {
+      const on = !active || m._k === active;
+      m.setIcon(cross(m._c, on && active ? Math.round(m._s * 1.32) : m._s));
+      m.setOpacity(on ? 1 : .15);
+      m.setZIndexOffset(on && active ? 1000 : 0);
+      if (!on) m.closePopup();
+    });
+    const list = active ? group(active) : markers;
+    if (list.length) fit(list, active);
+  }
+  btns.forEach(b => b.addEventListener('click', () => {
+    current = (current === b.dataset.k) ? null : b.dataset.k;
+    apply(current);
+  }));
+}
 
 function baseMap(id){
   const m = L.map(id, {scrollWheelZoom:false}).setView([-33.86, 151.05], 10);
@@ -258,6 +315,7 @@ fetch('churches.geojson').then(r=>r.json()).then(gj=>{
 
   if (!HAS_MAPS) {
     document.querySelectorAll('.reach').forEach(d=>{ d.hidden = true; });
+    document.querySelectorAll('.legend, .legend-hint').forEach(d=>{ d.hidden = true; });
     document.querySelectorAll('.map').forEach(d=>{
       d.style.display='grid'; d.style.placeItems='center'; d.style.height='120px';
       d.textContent='The maps could not load. The full list is below. 地图无法载入，完整名单见下方。';
@@ -269,29 +327,37 @@ fetch('churches.geojson').then(r=>r.json()).then(gj=>{
   /* map 1 — ministry type */
   if (HAS_MAPS) {
   const m1 = baseMap('map1');
+  const catMarkers = [];
   F.forEach(f=>{
     const p=f.properties, [lng,lat]=f.geometry.coordinates;
-    L.marker([lat,lng], {icon:cross(CAT_COLOUR[p.category]||CAT_COLOUR.unknown, 25),
-                          title:p.name})
+    const col = CAT_COLOUR[p.category]||CAT_COLOUR.unknown;
+    const mk = L.marker([lat,lng], {icon:cross(col, 25), title:p.name})
       .bindPopup(popup(p)+`<div class="t"><b>${CAT_LABEL[p.category]}</b></div>`)
       .addTo(m1);
+    mk._k = p.category; mk._c = col; mk._s = 25;
+    catMarkers.push(mk);
   });
+  pressableLegend('legend1', m1, catMarkers);
   }
 
   /* map 2 — language (one marker per language, nudged so both show) */
   if (HAS_MAPS) {
   const m2 = baseMap('map2');
+  const langMarkers = [];
   F.forEach(f=>{
     const p=f.properties, [lng,lat]=f.geometry.coordinates;
     const ls = (p.languages && p.languages.length) ? p.languages : [];
     ls.forEach((lang,i)=>{
       const off = (i - (ls.length-1)/2) * 0.0055;
-      L.marker([lat, lng+off], {icon:cross(LANG_COLOUR[lang]||'#8595A2', 21),
-                                title:p.name+' — '+lang})
+      const col = LANG_COLOUR[lang]||'#8595A2';
+      const mk = L.marker([lat, lng+off], {icon:cross(col, 21), title:p.name+' — '+lang})
         .bindPopup(popup(p)+`<div class="t"><b>${lang}</b></div>`)
         .addTo(m2);
+      mk._k = lang; mk._c = col; mk._s = 21;
+      langMarkers.push(mk);
     });
   });
+  pressableLegend('legend2', m2, langMarkers);
   }
 
   /* map 3 — coverage */
