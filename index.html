@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Chinese Congregations of the Diocese of Sydney · 悉尼圣公会华文教会</title>
 <meta name="description" content="Every Anglican church in the Diocese of Sydney with Chinese-language ministry — congregations, translation parishes and Chinese groups.">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="apple-mobile-web-app-title" content="SYDACM Churches">
+<meta name="theme-color" content="#5C1220">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500&display=swap">
@@ -60,7 +66,17 @@
   .map{height:420px;border:1px solid var(--rule);border-radius:6px;
     background:var(--sunk);z-index:0}
   @media (max-width:640px){.map{height:340px}}
-  .legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .cross-marker{background:none;border:0}
+  .legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;align-items:center}
+  .legend svg{display:block;flex:0 0 auto}
+
+  .reach{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:12px;
+    background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:10px 14px}
+  .reach label{font-size:14px;color:var(--muted);white-space:nowrap}
+  .reach output{font-family:"IBM Plex Mono",monospace;font-size:14px;color:var(--ink);
+    font-variant-numeric:tabular-nums;min-width:5.5ch;display:inline-block}
+  .reach input[type=range]{flex:1 1 220px;min-width:140px;accent-color:var(--accent)}
+  .reach .hint{font-size:13px;color:var(--faint);flex:1 1 100%}
   .key{display:inline-flex;align-items:center;gap:7px;font-size:13px;
     background:var(--surface);border:1px solid var(--rule);
     border-radius:999px;padding:4px 11px;color:var(--muted)}
@@ -128,10 +144,10 @@
     <p>Not every church on this list holds a service in Chinese. Some run an English service with live translation. The difference matters if you are deciding where to go on Sunday.</p>
     <div id="map1" class="map"></div>
     <div class="legend">
-      <span class="key"><i class="dot" style="background:var(--cong)"></i>Chinese congregation 华语崇拜</span>
-      <span class="key"><i class="dot" style="background:var(--trans)"></i>Translation parish 翻译</span>
-      <span class="key"><i class="dot" style="background:var(--group)"></i>Chinese groups 小组</span>
-      <span class="key"><i class="dot" style="background:var(--unk)"></i>Unconfirmed 待确认</span>
+      <span class="key"><svg width="11" height="14" viewBox="0 0 16 20"><path d="M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z" fill="var(--cong)"/></svg>Chinese congregation 华语崇拜</span>
+      <span class="key"><svg width="11" height="14" viewBox="0 0 16 20"><path d="M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z" fill="var(--trans)"/></svg>Translation parish 翻译</span>
+      <span class="key"><svg width="11" height="14" viewBox="0 0 16 20"><path d="M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z" fill="var(--group)"/></svg>Chinese groups 小组</span>
+      <span class="key"><svg width="11" height="14" viewBox="0 0 16 20"><path d="M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z" fill="var(--unk)"/></svg>Unconfirmed 待确认</span>
     </div>
   </section>
 
@@ -141,20 +157,27 @@
     <p>Mandarin, Cantonese, or both in one service. A church appears once for each language it offers.</p>
     <div id="map2" class="map"></div>
     <div class="legend">
-      <span class="key"><i class="dot" style="background:#C2452D"></i>Mandarin 国语</span>
-      <span class="key"><i class="dot" style="background:#1D5FA8"></i>Cantonese 粤语</span>
-      <span class="key"><i class="dot" style="background:#6A4FA3"></i>Bilingual 双语</span>
+      <span class="key"><svg width="11" height="14" viewBox="0 0 16 20"><path d="M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z" fill="#C2452D"/></svg>Mandarin 国语</span>
+      <span class="key"><svg width="11" height="14" viewBox="0 0 16 20"><path d="M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z" fill="#1D5FA8"/></svg>Cantonese 粤语</span>
+      <span class="key"><svg width="11" height="14" viewBox="0 0 16 20"><path d="M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z" fill="#6A4FA3"/></svg>Bilingual 双语</span>
     </div>
   </section>
 
   <!-- MAP 3 -->
   <section class="mapblock">
     <h2>3. Coverage <span class="zh">覆盖范围</span></h2>
-    <p>Where the ministry reaches, and where it does not. Each circle is roughly a five-kilometre reach. The gaps are the point of this map.</p>
+    <p>Where the ministry reaches, and where it does not. Each circle is the distance a church is assumed to draw people from — drag the slider to change it. The gaps are the point of this map.</p>
     <div id="map3" class="map"></div>
+    <div class="reach">
+      <label for="radius">Reach 覆盖半径</label>
+      <output id="radius-val" for="radius">5.0 km</output>
+      <input id="radius" type="range" min="1" max="15" step="0.5" value="5"
+             aria-label="Coverage radius in kilometres">
+      <span class="hint">Drag to change how far each church is assumed to reach. 拖动以调整每间教会的覆盖范围。</span>
+    </div>
     <div class="legend">
-      <span class="key"><i class="dot" style="background:var(--accent)"></i>Church with Chinese ministry</span>
-      <span class="key">Circles show about 5&nbsp;km 圆圈约为 5 公里范围</span>
+      <span class="key"><svg width="11" height="14" viewBox="0 0 16 20"><path d="M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z" fill="var(--accent)"/></svg>Church with Chinese ministry</span>
+      <span class="key">Circle size set by the slider 圆圈大小由滑杆调整</span>
     </div>
   </section>
 
@@ -201,9 +224,19 @@ function baseMap(id){
   }).addTo(m);
   return m;
 }
-const dot = (colour, r=7) => ({
-  radius:r, fillColor:colour, color:'#fff', weight:2, opacity:1, fillOpacity:.92
-});
+/* A Latin cross, drawn with a white halo so it reads over any basemap. */
+const CROSS_PATH = 'M6.4 1H9.6V6H14.5V9.2H9.6V19H6.4V9.2H1.5V6H6.4Z';
+function cross(colour, size=22){
+  const w = size, h = Math.round(size*1.25);
+  return L.divIcon({
+    className:'cross-marker',
+    html:`<svg width="${w}" height="${h}" viewBox="0 0 16 20">
+            <path d="${CROSS_PATH}" fill="${colour}" stroke="#fff" stroke-width="1.8"
+                  stroke-linejoin="round" paint-order="stroke"/>
+          </svg>`,
+    iconSize:[w,h], iconAnchor:[w/2,h/2], popupAnchor:[0,-h/2+2]
+  });
+}
 function popup(p){
   const zh = p.name_zh ? `<div class="zh">${p.name_zh}</div>` : '';
   const site = p.site ? ` — ${p.site}` : '';
@@ -224,6 +257,7 @@ fetch('churches.geojson').then(r=>r.json()).then(gj=>{
   document.getElementById('s-trans').textContent = byCat('translation').size;
 
   if (!HAS_MAPS) {
+    document.querySelectorAll('.reach').forEach(d=>{ d.hidden = true; });
     document.querySelectorAll('.map').forEach(d=>{
       d.style.display='grid'; d.style.placeItems='center'; d.style.height='120px';
       d.textContent='The maps could not load. The full list is below. 地图无法载入，完整名单见下方。';
@@ -237,7 +271,8 @@ fetch('churches.geojson').then(r=>r.json()).then(gj=>{
   const m1 = baseMap('map1');
   F.forEach(f=>{
     const p=f.properties, [lng,lat]=f.geometry.coordinates;
-    L.circleMarker([lat,lng], dot(CAT_COLOUR[p.category]||CAT_COLOUR.unknown))
+    L.marker([lat,lng], {icon:cross(CAT_COLOUR[p.category]||CAT_COLOUR.unknown, 25),
+                          title:p.name})
       .bindPopup(popup(p)+`<div class="t"><b>${CAT_LABEL[p.category]}</b></div>`)
       .addTo(m1);
   });
@@ -251,7 +286,8 @@ fetch('churches.geojson').then(r=>r.json()).then(gj=>{
     const ls = (p.languages && p.languages.length) ? p.languages : [];
     ls.forEach((lang,i)=>{
       const off = (i - (ls.length-1)/2) * 0.0055;
-      L.circleMarker([lat, lng+off], dot(LANG_COLOUR[lang]||'#8595A2', 6))
+      L.marker([lat, lng+off], {icon:cross(LANG_COLOUR[lang]||'#8595A2', 21),
+                                title:p.name+' — '+lang})
         .bindPopup(popup(p)+`<div class="t"><b>${lang}</b></div>`)
         .addTo(m2);
     });
@@ -261,12 +297,24 @@ fetch('churches.geojson').then(r=>r.json()).then(gj=>{
   /* map 3 — coverage */
   if (HAS_MAPS) {
   const m3 = baseMap('map3');
+  const reachCircles = [];
   F.forEach(f=>{
     const p=f.properties, [lng,lat]=f.geometry.coordinates;
-    L.circle([lat,lng], {radius:5000, color:C('--accent'), weight:1,
-      fillColor:C('--accent'), fillOpacity:.07}).addTo(m3);
-    L.circleMarker([lat,lng], dot(C('--accent'), 5)).bindPopup(popup(p)).addTo(m3);
+    reachCircles.push(
+      L.circle([lat,lng], {radius:5000, color:C('--accent'), weight:1,
+        fillColor:C('--accent'), fillOpacity:.07}).addTo(m3));
+    L.marker([lat,lng], {icon:cross(C('--accent'), 20), title:p.name})
+      .bindPopup(popup(p)).addTo(m3);
   });
+
+  const slider = document.getElementById('radius');
+  const out    = document.getElementById('radius-val');
+  function setReach(km){
+    out.textContent = km.toFixed(1) + ' km';
+    reachCircles.forEach(c => c.setRadius(km*1000));
+  }
+  slider.addEventListener('input', e => setReach(parseFloat(e.target.value)));
+  setReach(parseFloat(slider.value));
   }
 
   /* directory */
